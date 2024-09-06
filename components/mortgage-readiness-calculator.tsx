@@ -30,10 +30,6 @@ export function MortgageReadinessCalculator() {
   const [hasTaxRecords, setHasTaxRecords] = useState('')
   const [result, setResult] = useState(null)
   const [error, setError] = useState('')
-  const [email, setEmail] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [preferredLocations, setPreferredLocations] = useState('')
-  const [listingRequestSubmitted, setListingRequestSubmitted] = useState(false)
   const [showPreApprovalForm, setShowPreApprovalForm] = useState(false)
   const [preApprovalName, setPreApprovalName] = useState('')
   const [preApprovalEmail, setPreApprovalEmail] = useState('')
@@ -70,7 +66,6 @@ export function MortgageReadinessCalculator() {
       }
     } catch (error) {
       console.error('Error sending data to Zapier:', error)
-      // Optionally, you can set an error state here to show to the user
     }
   }
 
@@ -124,7 +119,6 @@ export function MortgageReadinessCalculator() {
       setRevealProgress(0)
       setStep(4)
 
-      // Send calculation result to Zapier
       sendToZapier({
         type: 'calculation_result',
         ...calculationResult,
@@ -152,25 +146,10 @@ export function MortgageReadinessCalculator() {
     return true
   }
 
-  const handleListingRequest = (e) => {
-    e.preventDefault()
-    console.log('Listing request submitted:', { email, phoneNumber, preferredLocations })
-    setListingRequestSubmitted(true)
-    // Send listing request to Zapier
-    sendToZapier({
-      type: 'listing_request',
-      email,
-      phoneNumber,
-      preferredLocations,
-      calculationId
-    })
-  }
-
   const handlePreApprovalSubmit = (e) => {
     e.preventDefault()
     console.log('Pre-approval request submitted:', { preApprovalName, preApprovalEmail, preApprovalZip, preApprovalPhone })
     setPreApprovalSubmitted(true)
-    // Send pre-approval request to Zapier
     sendToZapier({
       type: 'pre_approval_request',
       name: preApprovalName,
@@ -409,7 +388,7 @@ export function MortgageReadinessCalculator() {
                 <Alert>
                   <AlertTitle className="text-lg font-bold">Next Steps</AlertTitle>
                   <AlertDescription className="text-sm">
-                    Regardless of your current status, it's recommended to consult with a mortgage loan officer for a comprehensive assessment and personalized advice. They can provide a final decision and guide you through the mortgage application process or help you create a plan to become mortgage-ready.
+                    Regardless of your current status, it&apos;s recommended to consult with a mortgage loan officer for a comprehensive assessment and personalized advice. They can provide a final decision and guide you through the mortgage application process or help you create a plan to become mortgage-ready.
                   </AlertDescription>
                 </Alert>
                 <div className="bg-gray-100 p-4 rounded-lg">
@@ -424,7 +403,7 @@ export function MortgageReadinessCalculator() {
                     <div className="text-center sm:text-left">
                       <h3 className="text-xl font-semibold mb-2">Meet Your Mortgage Loan Officer</h3>
                       <p className="text-sm">
-                        Hi, I'm Caneshia! My mission is to provide every potential borrower with the keys to unlock their dream property. Whether you're securing your first home, upgrading to a vacation getaway, investing in income-generating properties, or purchasing commercial buildings, I am here to guide you every step of the way.
+                        Hi, I&apos;m Caneshia! My mission is to provide every potential borrower with the keys to unlock their dream property. Whether you&apos;re securing your first home, upgrading to a vacation getaway, investing in income-generating properties, or purchasing commercial buildings, I am here to guide you every step of the way.
                       </p>
                     </div>
                   </div>
@@ -502,7 +481,7 @@ export function MortgageReadinessCalculator() {
                   <Alert className="bg-green-100 border-green-400 text-green-800">
                     <AlertTitle className="text-lg font-bold">Thank You!</AlertTitle>
                     <AlertDescription className="text-sm">
-                      We've received your pre-approval request. A mortgage specialist will contact you soon to discuss your options.
+                      We&apos;ve received your pre-approval request. A mortgage specialist will contact you soon to discuss your options.
                     </AlertDescription>
                   </Alert>
                 )}
