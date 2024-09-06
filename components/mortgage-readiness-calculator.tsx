@@ -20,7 +20,7 @@ const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/12401881/2tnx5e
 
 interface ZapierData {
   type: 'calculation_result' | 'pre_approval_request';
-  [key: string]: any;
+  [key: string]: string | number | boolean | object;
 }
 
 export function MortgageReadinessCalculator() {
