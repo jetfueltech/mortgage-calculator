@@ -42,7 +42,7 @@ export function MortgageReadinessCalculator() {
   const [preApprovalPhone, setPreApprovalPhone] = useState('')
   const [preApprovalSubmitted, setPreApprovalSubmitted] = useState(false)
   const [revealProgress, setRevealProgress] = useState(0)
-  const [calculationId, setCalculationId] = useState(null)
+  const [calculationId, setCalculationId] = useState<string | null>(null)
 
   useEffect(() => {
     if (result) {
