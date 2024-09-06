@@ -18,6 +18,11 @@ const incomeTypes = ['W2', '1099', 'K1']
 // Replace this with your actual Zapier webhook URL
 const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/12401881/2tnx5e1/'
 
+interface ZapierData {
+  type: 'calculation_result' | 'pre_approval_request';
+  [key: string]: any;
+}
+
 export function MortgageReadinessCalculator() {
   const [step, setStep] = useState(1)
   const [monthlyDebt, setMonthlyDebt] = useState('')
@@ -52,7 +57,7 @@ export function MortgageReadinessCalculator() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2, 5)
   }
 
-  const sendToZapier = async (data) => {
+  const sendToZapier = async (data: ZapierData) => {
     try {
       const response = await fetch(ZAPIER_WEBHOOK_URL, {
         method: 'POST',
