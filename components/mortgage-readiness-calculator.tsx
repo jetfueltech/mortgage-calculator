@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -20,7 +20,19 @@ const ZAPIER_WEBHOOK_URL = '/api/sendtozapier'
 
 interface ZapierData {
   type: 'calculation_result' | 'pre_approval_request';
-  [key: string]: string | number | boolean | object;
+  [key: string]: string | number | boolean | object | null;
+}
+
+interface resultType {
+  id: string;
+  status: string;
+  statusMessage: string;
+  middleScore: number;
+  dti: number;
+  housingRatio: number;
+  maxMonthlyPayment: number;
+  lowPriceRange: number;
+  highPriceRange: number;
 }
 
 export function MortgageReadinessCalculator() {
@@ -33,7 +45,7 @@ export function MortgageReadinessCalculator() {
   const [interestRate, setInterestRate] = useState(7)
   const [hasIncomeHistory, setHasIncomeHistory] = useState('')
   const [hasTaxRecords, setHasTaxRecords] = useState('')
-  const [result, setResult] = useState(null)
+  const [result, setResult] = useState<resultType | null>(null)
   const [error, setError] = useState('')
   const [showPreApprovalForm, setShowPreApprovalForm] = useState(false)
   const [preApprovalName, setPreApprovalName] = useState('')
@@ -151,7 +163,7 @@ export function MortgageReadinessCalculator() {
     return true
   }
 
-  const handlePreApprovalSubmit = (e) => {
+  const handlePreApprovalSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log('Pre-approval request submitted:', { preApprovalName, preApprovalEmail, preApprovalZip, preApprovalPhone })
     setPreApprovalSubmitted(true)
@@ -174,11 +186,11 @@ export function MortgageReadinessCalculator() {
     })
   }
 
-  const formatCurrency = (value) => {
+  const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
   }
 
-  const formatPercentage = (value) => {
+  const formatPercentage = (value: number) => {
     return new Intl.NumberFormat('en-US', { style: 'percent', maximumFractionDigits: 2 }).format(value / 100)
   }
 
