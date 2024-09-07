@@ -16,7 +16,7 @@ const yesNoOptions = ['Yes', 'No']
 const incomeTypes = ['W2', '1099', 'K1']
 
 // Replace this with your actual Zapier webhook URL
-const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/12401881/2tnx5e1/'
+const ZAPIER_WEBHOOK_URL = '/api/sendtozapier'
 
 interface ZapierData {
   type: 'calculation_result' | 'pre_approval_request';
@@ -161,7 +161,16 @@ export function MortgageReadinessCalculator() {
       email: preApprovalEmail,
       zip: preApprovalZip,
       phone: preApprovalPhone,
-      calculationId
+      calculationId,
+      ...result,
+      monthlyDebt,
+      annualIncome,
+      ficoScores,
+      incomeType,
+      loanType,
+      interestRate,
+      hasIncomeHistory,
+      hasTaxRecords
     })
   }
 
